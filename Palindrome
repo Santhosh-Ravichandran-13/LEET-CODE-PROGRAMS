@@ -1,0 +1,26 @@
+#include <math.h>
+#include <stdbool.h>
+
+bool isPalindrome(int x) {
+    if (x < 0) return false;
+
+    int n1 = x;
+    int t = x;
+    int s = 0, c = 0;
+
+    while (t != 0) {
+        t /= 10;
+        c++;
+    }
+
+    while (n1 != 0) {
+        int d = n1 % 10;
+        s += d * pow(10, c - 1);
+        c--;
+        n1 /= 10;
+    }
+   if(s==x){
+     return true;
+   }
+    return false;
+}
