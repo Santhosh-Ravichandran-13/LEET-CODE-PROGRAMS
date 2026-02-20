@@ -1,0 +1,43 @@
+#include <stdbool.h>
+
+#define max 10000
+
+int top = -1;
+char stack[max];
+
+void push(char x) {
+    stack[++top] = x;
+}
+
+char pop() {
+    return stack[top--];
+}
+bool check(char s1, char s2) {
+    if ((s1 == '}' && s2 == '{') ||
+        (s1 == ']' && s2 == '[') ||
+        (s1 == ')' && s2 == '(')) {
+        return true;
+    }
+    return false;
+}
+
+bool isValid(char* s) {
+    top = -1;  
+
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] == '{' || s[i] == '(' || s[i] == '[') {
+            push(s[i]);
+        } 
+        else if (s[i] == '}' || s[i] == ')' || s[i] == ']') {
+            if (top == -1) {
+                return false;   
+            }
+            char op = pop();
+            if (!check(s[i], op)) {
+                return false;   
+            }
+        }
+    }
+
+    return top == -1;   
+}
